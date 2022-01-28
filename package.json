@@ -11,8 +11,14 @@
     },
     "devDependencies": {
         "axios": "^0.21",
-        "laravel-mix": "^6.0.6",
+        "laravel-mix": "^6.0.41",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "vue": "^3.2.29",
+        "vue-loader": "^17.0.0",
+        "vue-router": "^4.0.12",
+        "vue-sweetalert2": "^5.0.2"
     }
 }
