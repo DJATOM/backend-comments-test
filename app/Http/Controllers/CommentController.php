@@ -19,7 +19,7 @@ class CommentController extends Controller
     public function index(): ResourceCollection
     {
         $comments = Comment::root()
-            ->latest()
+            ->oldest()
             ->get();
 
         return CommentResource::collection($comments);
