@@ -62,15 +62,15 @@ export default {
     },
     methods: {
         getComments () {
-           this.loaded = false
-           axios.get('/api/comments')
-            .then((comments) => {
-                this.comments = comments.data.data
-                this.loaded   = true
-            })
-            .catch((error) => {
-                this.loaded = true
-            })
+            this.loaded = false
+            axios.get('/api/comments')
+                .then((comments) => {
+                    this.comments = comments.data.data
+                    this.loaded   = true
+                })
+                .catch((error) => {
+                    this.loaded = true
+                })
         },
         reloadComments () {
             this.writingComment = false
@@ -78,7 +78,6 @@ export default {
         },
         toggleComment () {
             this.writingComment = !this.writingComment
-            console.log(this.writingComment)
         },
         saveComment () {
             const data = {
@@ -127,6 +126,9 @@ export default {
         border: 1px solid gray;
         padding: 5px;
     }
+    .comment-actions > a:last-child {
+        margin-right: 0;
+    }
     .comment-actions > a,
     .no-comments > a,
     .add-comment > a {
@@ -144,9 +146,6 @@ export default {
     }
     .new-comment > textarea {
         min-height: 150px;
-    }
-    .new-comment > .comment-actions > a:last-child {
-        margin-right: 0;
     }
     .comment-edit,
     .comment-reply {

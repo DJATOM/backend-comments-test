@@ -14,7 +14,7 @@
                 <textarea :id="'edit-' + comment.id">{{ comment.content }}</textarea>
                 <div class="comment-actions">
                     <a @click.stop="saveComment(comment.id)">Сохранить</a>
-                    <a @click.stop="editing.pop(comment.id)">Отмена</a>
+                    <a @click.stop="discardComment">Отмена</a>
                 </div>
             </div>
             <template v-else>
@@ -36,7 +36,7 @@
             <textarea :id="'reply-' + comment.id"></textarea>
             <div class="comment-actions">
                 <a @click.stop="saveReply(comment.id)">Добавить ответ</a>
-                <a @click.stop="replying.pop(comment.id)">Отмена</a>
+                <a @click.stop="discardReply">Отмена</a>
             </div>
         </div>
         <template
@@ -60,24 +60,16 @@ export default {
         },
     },
     emits: ["reload"],
-    data () {
-        return {
-            editing: [],
-            replying: []
-        }
-    },
     methods: {
         editComment (id) {
-            this.editing  = []
-            this.replying = []
-            this.editing.push(id)
+           this.$store.commit('setEditing', id)
+           this.$store.commit('setReplying', null)
         },
         saveComment (id) {
             const data = {content: document.querySelector(`#edit-${id}`).value}
             axios.patch(`/api/comments/${id}`, data)
                 .then(() => {
                     this.$swal.fire('Комментарий изменен!', '', 'success')
-                    this.editing.pop(id)
                     this.$emit('reload')
                 })
                 .catch((error) => {
@@ -105,9 +97,8 @@ export default {
             })
         },
         addReply (id) {
-            this.editing  = []
-            this.replying = []
-            this.replying.push(id)
+           this.$store.commit('setEditing', null)
+           this.$store.commit('setReplying', id)
         },
         saveReply (id) {
             const data = {
@@ -117,18 +108,23 @@ export default {
             axios.post(`/api/comments`, data)
                 .then(() => {
                     this.$swal.fire('Ответ добавлен!', '', 'success')
-                    this.replying.pop(id)
                     this.$emit('reload')
                 })
                 .catch((error) => {
                     this.$swal(Object.values(error.response.data.errors).join('<br>'))
                 })
         },
+        discardComment () {
+           this.$store.commit('setEditing', null)
+        },
+        discardReply () {
+           this.$store.commit('setReplying', null)
+        },
         inEditing (id) {
-            return this.editing.includes(id)
+            return this.$store.state.editing === id
         },
         inReplying (id) {
-            return this.replying.includes(id)
+            return this.$store.state.replying === id
         },
     }
 }
