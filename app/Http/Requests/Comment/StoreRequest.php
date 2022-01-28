@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'content' => 'required|string|min:3',
-            'comment_id' => 'nullable|integer'
+            'comment_id' => 'nullable|integer|exists:comments,id'
         ];
     }
 }
