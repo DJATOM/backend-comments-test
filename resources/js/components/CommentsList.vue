@@ -70,6 +70,7 @@ export default {
             axios.patch(`/api/comments/${id}`, data)
                 .then(() => {
                     this.$swal.fire('Комментарий изменен!', '', 'success')
+                    this.$store.commit('setEditing', null)
                     this.$emit('reload')
                 })
                 .catch((error) => {
@@ -108,6 +109,7 @@ export default {
             axios.post(`/api/comments`, data)
                 .then(() => {
                     this.$swal.fire('Ответ добавлен!', '', 'success')
+                    this.$store.commit('setReplying', null)
                     this.$emit('reload')
                 })
                 .catch((error) => {
