@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Comment::factory(10)->create();
+        Comment::factory(4)->create();
+        Comment::factory(6)
+            ->hasReplies(2)
+            ->create();
     }
 }
