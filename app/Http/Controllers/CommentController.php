@@ -7,6 +7,7 @@ use App\Http\Requests\Comment\UpdateRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
@@ -66,9 +67,9 @@ class CommentController extends Controller
      * Remove the specified comment from storage.
      *
      * @param  Comment  $comment
-     * @return Response
+     * @return JsonResponse
      */
-    public function destroy(Comment $comment): Response
+    public function destroy(Comment $comment): JsonResponse
     {
         $comment->delete();
 
