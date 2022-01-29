@@ -8,5 +8,6 @@
 * go to php container (`[sudo] docker exec -it php sh`)
 * install project requirements (`composer install`)
 * link storage with public (`php artisan storage:link`)
+* generate application key (`php artisan key:generate`)
 * run migrations (`php artisan migrate [--seed]`)
 * run tests (`php artisan test`)
