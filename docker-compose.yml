@@ -36,6 +36,8 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       SERVICE_TAGS: prod
       SERVICE_NAME: mysql
+    volumes:
+      - ./dockerfiles/mysql:/var/lib/mysql
     networks:
       - laravel
 
